@@ -1,5 +1,7 @@
 package com.manageo.test.controller;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,9 +24,12 @@ public class NumberController {
 	public ResponseEntity<List<List<Word>>> getnumber(@PathVariable("id") Integer id) {
 		//return reponseService.getWords(15);
 		//return new ResponseEntity<Word>(reponseService.getNumbers(id), HttpStatus.CREATED);
-		 var headers = new HttpHeaders();
-	        headers.add("Responded", "MyController");
-		return ResponseEntity.accepted().headers(headers).body(reponseService.getWords(id));
+		LocalDate localDate = LocalDate.now(); 
+		String d1Str = localDate.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));  
+      
+		HttpHeaders headers = new HttpHeaders();
+	        headers.add("date", d1Str);
+		return ResponseEntity.ok().headers(headers).body(reponseService.getWords(id));
 	}
 	
 
